@@ -5,6 +5,8 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrzepisWebAplication", "PrzepisWebAplication\PrzepisWebAplication.csproj", "{7FD3B268-7B82-41B2-BFA9-8811034CCAF1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Przepisy.Data", "Przepisy.Data\Przepisy.Data.csproj", "{15C74EFE-3507-40C7-BB57-FF5D12A6FAFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7FD3B268-7B82-41B2-BFA9-8811034CCAF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FD3B268-7B82-41B2-BFA9-8811034CCAF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FD3B268-7B82-41B2-BFA9-8811034CCAF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15C74EFE-3507-40C7-BB57-FF5D12A6FAFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15C74EFE-3507-40C7-BB57-FF5D12A6FAFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15C74EFE-3507-40C7-BB57-FF5D12A6FAFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15C74EFE-3507-40C7-BB57-FF5D12A6FAFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
