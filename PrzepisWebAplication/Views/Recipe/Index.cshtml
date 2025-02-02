@@ -1,0 +1,43 @@
+﻿@model IEnumerable<PrzepisyWebApplication.Models.RecipeViewModel>
+
+@{
+    ViewData["Title"] = "Recipes";
+}
+
+<h1>Recipes</h1>
+
+<!-- WYSZUKIWARKA (formularz GET) -->
+<form method="get" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="search" class="form-control" placeholder="Search by title..." />
+        <button type="submit" class="btn btn-outline-secondary">Search</button>
+    </div>
+</form>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New Recipe</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Title)</th>
+            <th>@Html.DisplayNameFor(model => model.Description)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var recipe in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(m => recipe.Title)</td>
+                <td>@Html.DisplayFor(m => recipe.Description)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@recipe.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@recipe.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@recipe.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
