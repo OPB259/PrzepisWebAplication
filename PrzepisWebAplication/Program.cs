@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Przepisy.Data;
+using PrzepisyWebApplication.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddDbContext<PrzepisyContext>(options =>
     options.UseSqlite($"Data Source={dbPath}");
 });
 
+builder.Services.AddTransient<IRecipeService, RecipeService>();
 
 
 var app = builder.Build();

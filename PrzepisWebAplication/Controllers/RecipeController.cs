@@ -1,127 +1,91 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PrzepisyWebApplication.Models;
-using System.Collections.Generic;
-using System.Linq;
+using PrzepisyWebApplication.Services;
 
 namespace PrzepisyWebApplication.Controllers
 {
     public class RecipeController : Controller
     {
-        // Baza w pamięci podreczej
-        static List<RecipeViewModel> recipes = new List<RecipeViewModel>();
+        private readonly IRecipeService _recipeService;
+
+        public RecipeController(IRecipeService recipeService)
+        {
+            _recipeService = recipeService;
+        }
 
         [HttpGet]
         public IActionResult Index(string search)
         {
-            // Kopia głównej listy
-            var filteredRecipes = recipes;
+            var all = _recipeService.FindAll();
 
             if (!string.IsNullOrEmpty(search))
             {
-                filteredRecipes = recipes
-                    .Where(r => r.Title.Contains(search, StringComparison.OrdinalIgnoreCase))
-                    .ToList();
+                // prosty filtr po tytule
+                all = all.Where(r => r.Title.Contains(search, System.StringComparison.OrdinalIgnoreCase)).ToList();
             }
 
-            return View(filteredRecipes);
+            return View(all);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            // Pusty formularz
             return View();
         }
 
         [HttpPost]
         public IActionResult Create(RecipeViewModel recipe)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                // Prosty sposób na ustalenie nowego Id
-                // o ile lista nie jest pusta
-                if (recipes.Count > 0)
-                    recipe.Id = recipes.Max(x => x.Id) + 1;
-                else
-                    recipe.Id = 1;
-
-                recipes.Add(recipe);
-
-                // Po dodaniu wracamy do listy
-                return RedirectToAction("Index");
+                return View(recipe);
             }
-
-            // Jeśli walidacja nie przeszła, zwróć ten sam widok z błędami
-            return View(recipe);
+            _recipeService.Add(recipe);
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var recipe = recipes.FirstOrDefault(r => r.Id == id);
-            if (recipe == null)
-            {
-                return NotFound(); // lub RedirectToAction("Index")
-            }
+            var item = _recipeService.FindById(id);
+            if (item == null) return NotFound();
 
-            return View(recipe);
+            return View("Edit", item);
+            // lub sam "Edit" w nazwie, 
+            // zależnie jak nazwałeś plik widoku
         }
 
         [HttpPost]
-        public IActionResult Edit(RecipeViewModel updatedRecipe)
+        public IActionResult Edit(RecipeViewModel recipe)
         {
             if (!ModelState.IsValid)
             {
-                // Błędy walidacji – wróć do widoku z danymi
-                return View(updatedRecipe);
+                return View("Edit", recipe);
             }
-
-            // Znajdź istniejący przepis
-            var recipe = recipes.FirstOrDefault(r => r.Id == updatedRecipe.Id);
-            if (recipe == null)
-            {
-                return NotFound(); // lub RedirectToAction("Index")
-            }
-
-            // Nadpisz wartości
-            recipe.Title = updatedRecipe.Title;
-            recipe.Description = updatedRecipe.Description;
-            // recipe.Whatever = updatedRecipe.Whatever; // jeśli masz więcej pól
-
-            // Przekieruj do listy
+            _recipeService.Update(recipe);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         public IActionResult Details(int id)
         {
-            var recipe = recipes.FirstOrDefault(r => r.Id == id);
-            if (recipe == null)
-            {
-                return NotFound();
-            }
-            return View(recipe);
+            var item = _recipeService.FindById(id);
+            if (item == null) return NotFound();
+            return View(item);
         }
 
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var recipe = recipes.FirstOrDefault(r => r.Id == id);
-            if (recipe == null)
-            {
-                return NotFound();
-            }
-            return View(recipe);
+            var item = _recipeService.FindById(id);
+            if (item == null) return NotFound();
+            return View(item);
         }
 
         [HttpPost]
         public IActionResult DeleteConfirmed(int id)
         {
-            var recipe = recipes.FirstOrDefault(r => r.Id == id);
-            if (recipe != null)
-            {
-                recipes.Remove(recipe);
-            }
+            _recipeService.Delete(id);
             return RedirectToAction("Index");
         }
     }
