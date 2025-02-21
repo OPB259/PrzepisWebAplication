@@ -14,6 +14,7 @@ namespace Przepisy.Data
 
         // DbSet reprezentuje tabelę w bazie danych
         public DbSet<RecipeEntity> Recipes { get; set; }
+        public DbSet<CommentEntity> Comments { get; set; }
 
         // W przyszłości możesz dodać więcej DbSet, np. DbSet<IngredientEntity> ...
 

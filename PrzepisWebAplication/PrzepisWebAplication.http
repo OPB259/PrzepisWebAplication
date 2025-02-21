@@ -1,0 +1,104 @@
+﻿@PrzepisWebAplication_HostAddress = https://localhost:7038
+
+POST {{PrzepisWebAplication_HostAddress}}/api/commentsapi
+Content-Type: application/json
+
+{
+  "content": "Super przepis!"
+}
+
+###
+
+GET {{PrzepisWebAplication_HostAddress}}/api/commentsapi
+
+###
+
+POST {{PrzepisWebAplication_HostAddress}}/api/commentsapi
+Content-Type: application/json
+
+{
+  //CommentEntity
+}
+
+###
+
+GET {{PrzepisWebAplication_HostAddress}}/api/commentsapi/0
+
+###
+
+DELETE {{PrzepisWebAplication_HostAddress}}/api/commentsapi/0
+
+###
+
+PUT {{PrzepisWebAplication_HostAddress}}/api/commentsapi/0
+Content-Type: application/json
+
+{
+  //CommentEntity
+}
+
+###
+
+GET {{PrzepisWebAplication_HostAddress}}/home/error/{id}
+
+###
+
+GET {{PrzepisWebAplication_HostAddress}}/home/index/{id}
+
+###
+
+GET {{PrzepisWebAplication_HostAddress}}/home/privacy/{id}
+
+###
+
+GET {{PrzepisWebAplication_HostAddress}}/recipe/create/{id}
+
+###
+
+POST {{PrzepisWebAplication_HostAddress}}/recipe/create/{id}
+Content-Type: application/json
+
+{
+  //RecipeViewModel
+}
+
+###
+
+GET {{PrzepisWebAplication_HostAddress}}/recipe/delete/0
+
+###
+
+POST {{PrzepisWebAplication_HostAddress}}/recipe/deleteconfirmed/0
+
+###
+
+GET {{PrzepisWebAplication_HostAddress}}/recipe/details/0
+
+###
+
+GET {{PrzepisWebAplication_HostAddress}}/recipe/edit/0
+
+###
+
+POST {{PrzepisWebAplication_HostAddress}}/recipe/edit/{id}
+Content-Type: application/json
+
+{
+  //RecipeViewModel
+}
+
+###
+
+GET {{PrzepisWebAplication_HostAddress}}/recipe/index/{id}?search=string
+
+###
+
+POST {{PrzepisWebAplication_HostAddress}}/api/commentsapi
+Content-Type: application/json
+
+{
+  "content": "Super przepis!",
+  "recipeId": 1
+}
+
+###
